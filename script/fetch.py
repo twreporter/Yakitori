@@ -40,6 +40,8 @@ logging.debug('records from api: %s', json.dumps(records))
 for i in records['stories']:
     pageBuffer = StringIO()
     fileName = i['slug']
+    author = i['author_display']
+    pub_date = i['pub_date']
     logging.info('get file: %s', fileName)
     cc.setopt(cc.URL, i['url'])
     cc.setopt(cc.WRITEDATA, pageBuffer)
@@ -50,7 +52,7 @@ for i in records['stories']:
     story = re.sub(r'<.+?>', r'', story)
     # Body is a string in some encoding.
     # In Python 2, we can print it without knowing what the encoding is.
-    articles.append(story)
+    articles.append({"author": author, "pub_date": pub_date, "story": story})
     
 
 logging.info('fetching completed')
