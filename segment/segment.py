@@ -21,12 +21,12 @@ def segment(full_str):
                    if len(seg) < 2: 
                        if last_uni: 
                            seg = last_uni + seg 
-                       else: 
-                           last_uni = seg  
-                   else: 
+                       last_uni = seg  
+                   else:
+                       last_uni = ''
+                   if len(seg) >=2 : 
                        result += seg 
                        result += ' '
-                       last_uni = ' '
     return result 
 
 
@@ -38,7 +38,8 @@ def main():
         for a in ja: 
             story = a['story']
             processed = segment(story)
-            sf.write(processed.encode('utf-8'))
+            sf.write(processed.encode('utf-8')+"\n")
+    sf.close()
 
 if __name__ == "__main__":
     main()
